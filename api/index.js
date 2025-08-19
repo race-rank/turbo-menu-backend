@@ -175,12 +175,12 @@ const adminNotifier = new AdminNotifier();
 
 // ---- API routes ----
 // Health check
-app.get('/api/health', (req, res) => {
+app.get('/health', (req, res) => {
   res.status(200).json({ status: 'up', time: new Date().toISOString() });
 });
 
 // Submit new order
-app.post('/api/orders', validateHookahOrder, (req, res) => {
+app.post('/orders', validateHookahOrder, (req, res) => {
   try {
     const { items, total, customerInfo } = req.body;
     
@@ -221,7 +221,7 @@ app.post('/api/orders', validateHookahOrder, (req, res) => {
 });
 
 // Get order status
-app.get('/api/orders/:orderId', (req, res) => {
+app.get('/orders/:orderId', (req, res) => {
   const { orderId } = req.params;
   const order = orderStore.getOrder(orderId);
   
@@ -239,7 +239,7 @@ app.get('/api/orders/:orderId', (req, res) => {
 });
 
 // Update order status (admin only)
-app.put('/api/orders/:orderId/status', (req, res) => {
+app.put('/orders/:orderId/status', (req, res) => {
   // NOTE: In a real app, we would authenticate admin users here
   const { orderId } = req.params;
   const { status } = req.body;
@@ -274,7 +274,7 @@ app.put('/api/orders/:orderId/status', (req, res) => {
 });
 
 // Admin: Get recent orders
-app.get('/api/admin/orders', (req, res) => {
+app.get('/admin/orders', (req, res) => {
   // NOTE: In a real app, we would authenticate admin users here
   const { status } = req.query;
   
@@ -292,7 +292,7 @@ app.get('/api/admin/orders', (req, res) => {
 });
 
 // Admin: Get recent notifications
-app.get('/api/admin/notifications', (req, res) => {
+app.get('/admin/notifications', (req, res) => {
   // NOTE: In a real app, we would authenticate admin users here
   const notifications = adminNotifier.getRecentNotifications();
   
