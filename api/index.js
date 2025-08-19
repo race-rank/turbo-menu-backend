@@ -7,21 +7,12 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// CORS configuration
-const corsOptions = {
-  origin: [
-    '*'
-  ],
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
-};
-
-app.use(cors(corsOptions));
+// Simplified CORS for Vercel - headers are handled by vercel.json
+app.use(cors());
 app.use(bodyParser.json());
 
 // Handle preflight requests explicitly
-app.options('*', cors(corsOptions));
+app.options('*', cors());
 
 // ---- Custom middleware ----
 // Request logger with timestamp and path tracking
@@ -303,6 +294,15 @@ app.get('/admin/notifications', (req, res) => {
   });
 });
 
+// Start server
+app.listen(PORT, () => {
+  console.log(`Turbo Menu API server running on port ${PORT}`);
+  console.log(`Environment: ${process.env.NODE_ENV}`);
+  console.log('Ready to accept orders...');
+});
+
+// Export for testing
+module.exports = app;
 // Start server
 app.listen(PORT, () => {
   console.log(`Turbo Menu API server running on port ${PORT}`);
