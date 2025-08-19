@@ -14,7 +14,7 @@
         },
         {
           "key": "Access-Control-Allow-Origin",
-          "value": "https://hookah-tabacu-menu.vercel.app"
+          "value": "*"
         },
         {
           "key": "Access-Control-Allow-Methods",
