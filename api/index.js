@@ -303,12 +303,3 @@ app.listen(PORT, () => {
 
 // Export for testing
 module.exports = app;
-// Start server
-app.listen(PORT, () => {
-  console.log(`Turbo Menu API server running on port ${PORT}`);
-  console.log(`Environment: ${process.env.NODE_ENV}`);
-  console.log('Ready to accept orders...');
-});
-
-// Export for testing
-module.exports = app;
