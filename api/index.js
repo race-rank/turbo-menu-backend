@@ -7,6 +7,21 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// CORS configuration
+const corsOptions = {
+  origin: [
+    process.env.FRONTEND_URL,
+    'http://localhost:3000',
+    'http://localhost:5173'
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+};
+
+app.use(cors(corsOptions));
+app.use(bodyParser.json());
+
 // ---- Custom middleware ----
 // Request logger with timestamp and path tracking
 const requestTracker = (req, res, next) => {
@@ -50,12 +65,6 @@ const validateHookahOrder = (req, res, next) => {
 };
 
 // Apply basic middleware
-app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
-app.use(bodyParser.json());
 app.use(requestTracker);
 
 // ---- Data structures ----
